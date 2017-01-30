@@ -21,4 +21,4 @@ RUN pip install -r requirements.txt
 # run the worker
 #ENTRYPOINT ['celery']
 #CMD ['-A','tasks', 'worker','--loglevel=info']
-ENTRYPOINT celery -A tasks worker --loglevel=info
+ENTRYPOINT celery -A celery_config worker --loglevel=info
