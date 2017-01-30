@@ -12,7 +12,7 @@ def add(x, y):
     time.sleep(5) # sleep for a while before the gigantic addition task!
     return x + y
 
-@celery.task(name='ins00.read_db_data')
+@app.task(name='ins00.read_db_data')
 def read_db_data(lname_wanted='Aarick'):
     CONN_STRING = 'postgresql://test_user:med@luckystardb:5432/etl'
     Base = automap_base()
