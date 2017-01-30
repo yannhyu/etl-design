@@ -29,9 +29,9 @@ def read_db_data(lname_wanted='Aarick'):
     session = Session(engine)
 
     from sqlalchemy import text
-    stmt = text("SELECT data->>'lname', data->>'fname'"
+    stmt = text("SELECT id, data "
                 "FROM ins00 where data->>'lname'=:lname")
-    stmt = stmt.columns(Insurance.lname, Insurance.fname)
+    stmt = stmt.columns(Insurance.id, Insurance.data)
 
     #LNAME_WANTED = 'Aarick'
     #LNAME_WANTED = 'Aaron'
@@ -40,9 +40,8 @@ def read_db_data(lname_wanted='Aarick'):
     LNAME_WANTED = lname_wanted
 
     insurances = session.query(Insurance).\
-                 from_statement(stmt).params(lname=LNAME_WANTED).all():
-    
+                 from_statement(stmt).params(lname=LNAME_WANTED).all()
     results = []
     for ins in insurances:    
-        results.append('{} {}\n'.format(ins.fname, ins.lname))
-    return ','.join(results)
+        results.append('{} {}\n'.format(ins.data['fname'], ins.data['lname']))
+    return ''.join(results)
