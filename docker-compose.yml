@@ -11,13 +11,13 @@ services:
       - redis
   worker:
     build:
-      context: ./etl-celery
+      context: ./etl-workers
       dockerfile: Dockerfile
     depends_on:
       - redis
   monitor:
     build:
-      context: ./etl-celery
+      context: ./etl-worksers
       dockerfile: Dockerfile
     ports:
      - "5555:5555"

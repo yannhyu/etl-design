@@ -11,8 +11,8 @@ ENV C_FORCE_ROOT true
 
 
 # copy source code
-COPY . /etl-celery
-WORKDIR /etl-celery
+COPY . /etl-workers
+WORKDIR /etl-workers
 
 # install requirements
 RUN pip install -r requirements.txt
