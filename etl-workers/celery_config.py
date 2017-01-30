@@ -9,4 +9,4 @@ CELERY_RESULT_BACKEND=env.get('CELERY_RESULT_BACKEND','redis://localhost:6379')
 app = Celery('celery_config',
                 broker=CELERY_BROKER_URL,
                 backend=CELERY_RESULT_BACKEND,
-                include=['ins00.add', 'ins00.read_db_data'])
+                include=['ins00.tasks'])
