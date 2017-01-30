@@ -17,7 +17,7 @@ services:
       - redis
   monitor:
     build:
-      context: ./etl-worksers
+      context: ./etl-workers
       dockerfile: Dockerfile
     ports:
      - "5555:5555"
