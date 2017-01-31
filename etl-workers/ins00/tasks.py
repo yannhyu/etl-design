@@ -14,7 +14,7 @@ def add(x, y):
 
 @app.task(name='ins00.read_db_data')
 def read_db_data(lname_wanted='Aarick'):
-    CONN_STRING = 'postgresql://test_user:med@luckystardb:5432/etl'
+    CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
     Base = automap_base()
 
     # engine, assume it has a table 'ins00' set up
@@ -30,7 +30,7 @@ def read_db_data(lname_wanted='Aarick'):
 
     from sqlalchemy import text
     stmt = text("SELECT id, data "
-                "FROM ins00 where data->>'lname'=:lname")
+                "FROM ins00 WHERE LOWER(data->>'lname')=LOWER(:lname)")
     stmt = stmt.columns(Insurance.id, Insurance.data)
 
     #LNAME_WANTED = 'Aarick'
@@ -43,5 +43,5 @@ def read_db_data(lname_wanted='Aarick'):
                  from_statement(stmt).params(lname=LNAME_WANTED).all()
     results = []
     for ins in insurances:    
-        results.append('{} {}\n'.format(ins.data['fname'], ins.data['lname']))
+        results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
     return ''.join(results)
