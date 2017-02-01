@@ -1,4 +1,4 @@
-# add.py
+# tasks.py
 
 from celery_config import app
 import time
@@ -6,6 +6,9 @@ import logging
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @app.task(name='ins00.add')
 def add(x, y):
@@ -38,7 +41,7 @@ def read_db_data(lname_wanted='Aarick'):
     #LNAME_WANTED = 'Abad'
 
     LNAME_WANTED = lname_wanted
-    logging.info('looking up by last name: {}'.format(LNAME_WANTED))
+    logger.info('looking up by last name: {}'.format(LNAME_WANTED))
 
     insurances = session.query(Insurance).\
                  from_statement(stmt).params(lname=LNAME_WANTED).all()
