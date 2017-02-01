@@ -2,7 +2,7 @@
 
 from celery_config import app
 import time
-
+import logging
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
@@ -38,6 +38,7 @@ def read_db_data(lname_wanted='Aarick'):
     #LNAME_WANTED = 'Abad'
 
     LNAME_WANTED = lname_wanted
+    logging.debug('looking up by last name: {}'.format(LNAME_WANTED))
 
     insurances = session.query(Insurance).\
                  from_statement(stmt).params(lname=LNAME_WANTED).all()
