@@ -38,7 +38,7 @@ def read_db_data(lname_wanted='Aarick'):
     #LNAME_WANTED = 'Abad'
 
     LNAME_WANTED = lname_wanted
-    logging.debug('looking up by last name: {}'.format(LNAME_WANTED))
+    logging.info('looking up by last name: {}'.format(LNAME_WANTED))
 
     insurances = session.query(Insurance).\
                  from_statement(stmt).params(lname=LNAME_WANTED).all()
