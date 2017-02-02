@@ -65,12 +65,15 @@ def read_db_data(lname_wanted='Aarick'):
         results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
     return ''.join(results)
 
-def generate_query_text(kwargs):
+def generate_query_text(args, kwargs):
     results = []
     results.append("SELECT id, data FROM ins00 WHERE ")
     for key, value in kwargs.items():
         if key in ALLOWED_QUERY_KEYS:
-            results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key, value))
+            if args[0] and args[0].upper() == 'LIKE':
+                results.append("LOWER(data->>'{}') LIKE LOWER('%{}%') ".format(key,  value))
+            else:
+                results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key,  value))
             results.append("AND ")
     return ''.join(results[:-1])
 
@@ -90,7 +93,7 @@ def flex_find_data(*args, **kwargs):
     Insurance = Base.classes.ins00
     session = Session(engine)
 
-    my_sql = generate_query_text(kwargs)
+    my_sql = generate_query_text(args, kwargs)
     logger.info('..db looking up with query: {}'.format(my_sql))
     from sqlalchemy import text
     stmt = text(my_sql)
