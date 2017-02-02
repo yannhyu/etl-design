@@ -102,7 +102,8 @@ def flex_find_data(*args, **kwargs):
     insurances = session.query(Insurance).from_statement(stmt).all()
     results = []
     #results.append('LIKE is set to {}<br>\n'.format(args[0]))
-    results.append('The following keys are allowed in search: {}<br>\n'.format(','.join(ALLOWED_QUERY_KEYS)))
+    results.append('The following keys are allowed in search: {}'.format(','.join(ALLOWED_QUERY_KEYS)))
+    results.append('<br>\n<br>\n')
     for ins in insurances:
         results.append('{} {}<br>\n{}<br>\n{}, {} {}<br>\n<br>\n'.format(ins.data['fname'],
                                                                          ins.data['lname'],
