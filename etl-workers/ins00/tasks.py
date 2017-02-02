@@ -23,7 +23,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
-ALLOWED_QUERY_KEYS = {'cust_id', 'lname', 'fname', 'state', 'gender'}
+ALLOWED_QUERY_KEYS = {'cust_id', 'hid', 'acctnum', 'lname', 'fname'}
 
 @app.task(name='ins00.add')
 def add(x, y):
@@ -105,11 +105,11 @@ def flex_find_data(*args, **kwargs):
     results.append('The following keys are allowed in search: {}'.format(','.join(ALLOWED_QUERY_KEYS)))
     results.append('<br>\n<br>\n')
     for ins in insurances:
-        results.append('{} {}<br>\n{}<br>\n{}, {} {}<br>\n<br>\n'.format(ins.data['fname'],
-                                                                         ins.data['lname'],
-                                                                         ins.data['addr1'],
-                                                                         ins.data['city'],
-                                                                         ins.data['state'],
-                                                                         ins.data['zip5']))
+        results.append('{}::{}::{}'.format(ins.data['cust_id'], ins.data['hid'], ins.data['acctnum']))
+        results.append('{} {}<br>\n'.format(ins.data['fname'], ins.data['lname']))
+        results.append('{}<br>\n{}'.format(ins.data['addr1'])
+        results.append('{}, {} {}<br>\n<br>\n'.format(ins.data['city'],
+                                                      ins.data['state'],
+                                                      ins.data['zip5']))
 
     return ''.join(results)
