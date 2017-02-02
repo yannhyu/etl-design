@@ -62,6 +62,15 @@ def read_db_data(lname_wanted='Aarick'):
         results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
     return ''.join(results)
 
+def generate_query_text(kwargs):
+    results = []
+    results.append("SELECT id, data FROM ins00 WHERE ")
+    for key, value in kwargs.items():
+        #results.append("{} = {}<br>\n".format(key, value))
+        results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key, value))
+        results.append("AND ")
+    return ''.join(results[:-1])
+
 @app.task(name='ins00.flex_find_data')
 def flex_find_data(**kwargs):
     ALLOWED_QUERY_KEYS = ['cust_id', 'lname', 'fname', 'state', 'gender']
@@ -93,10 +102,14 @@ def flex_find_data(**kwargs):
 #    for ins in insurances:
 #        results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
 #    return ''.join(results)
+    my_sql = generate_query_text(kwargs)
+    logger.info('..db looking up with query: {}'.format(my_sql))
+    from sqlalchemy import text
+    stmt = text(my_sql)
+    stmt = stmt.columns(Insurance.id, Insurance.data)
+    insurances = session.query(Insurance).from_statement(stmt).all()
     results = []
-    results.append("SELECT id, data FROM ins00 WHERE ")
-    for key, value in kwargs.items():
-        #results.append("{} = {}<br>\n".format(key, value))
-        results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key, value))
-        results.append("AND ")
-    return ''.join(results[:-1])
+    for ins in insurances:
+        results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
+
+    return ''.join(results)
