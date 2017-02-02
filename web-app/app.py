@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask import url_for
 from worker import celery
 from celery.result import AsyncResult
@@ -23,7 +23,7 @@ def read_db_data(param):
 @app.route('/flex_find_data/')
 def flex_find_data():
     all_args = request.args.to_dict()
-    task = celery.send_task('ins00.flex_find_data', args=[], kwargs=jsonify(all_args))
+    task = celery.send_task('ins00.flex_find_data', args=[], kwargs=all_args)
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
                 url=url_for('check_task',id=task.id,_external=True))
 
