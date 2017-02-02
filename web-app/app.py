@@ -20,8 +20,9 @@ def read_db_data(param):
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
                 url=url_for('check_task',id=task.id,_external=True))
 
+@app.route('/flex_find_data/', defaults={'param': 'eq'})
 @app.route('/flex_find_data/<string:param>')
-def flex_find_data(param=''):
+def flex_find_data(param):
     all_args = request.args.to_dict()
     task = celery.send_task('ins00.flex_find_data', args=[param], kwargs=all_args)
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
