@@ -70,7 +70,8 @@ def generate_query_text(args, kwargs):
     results.append("SELECT id, data FROM ins00 WHERE ")
     for key, value in kwargs.items():
         if key in ALLOWED_QUERY_KEYS:
-            if args[0] and args[0].upper() == 'LIKE':
+            OK_LIKE_SQL_FLAG = ('L', 'LI', 'LIK', 'LIKE')
+            if args[0] and args[0].upper() in OK_LIKE_SQL_FLAG:
                 results.append("LOWER(data->>'{}') LIKE LOWER('%{}%') ".format(key,  value))
             else:
                 results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key,  value))
