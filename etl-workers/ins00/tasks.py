@@ -105,9 +105,9 @@ def flex_find_data(*args, **kwargs):
     results.append('The following keys are allowed in search: {}'.format(','.join(ALLOWED_QUERY_KEYS)))
     results.append('<br>\n<br>\n')
     for ins in insurances:
-        results.append('{}::{}::{}'.format(ins.data['cust_id'], ins.data['hid'], ins.data['acctnum']))
+        results.append('{}::{}::{}<br>\n'.format(ins.data['cust_id'], ins.data['hid'], ins.data['acctnum']))
         results.append('{} {}<br>\n'.format(ins.data['fname'], ins.data['lname']))
-        results.append('{}<br>\n{}'.format(ins.data['addr1']))
+        results.append('{}<br>\n'.format(ins.data['addr1']))
         results.append('{}, {} {}<br>\n<br>\n'.format(ins.data['city'],
                                                       ins.data['state'],
                                                       ins.data['zip5']))
