@@ -108,6 +108,7 @@ def flex_find_data(*args, **kwargs):
         results.append('{}={}&'.format('cust_id', ins.data['cust_id']))
         results.append('{}={}&'.format('hid', ins.data['hid']))
         results.append('{}={}<br>\n'.format('acctnum', ins.data['acctnum']))
+        results.append('{}/{}/{}<br>\n'.format(ins.data['cust_id'], ins.data['hid'], ins.data['acctnum']))
         results.append('{} {}<br>\n'.format(ins.data['fname'], ins.data['lname']))
         results.append('{}<br>\n'.format(ins.data['addr1']))
         results.append('{}, {} {}<br>\n<br>\n'.format(ins.data['city'],
