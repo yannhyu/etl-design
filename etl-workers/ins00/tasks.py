@@ -75,7 +75,7 @@ def generate_query_text(kwargs):
     return ''.join(results[:-1])
 
 @app.task(name='ins00.flex_find_data')
-def flex_find_data(**kwargs):
+def flex_find_data(*args, **kwargs):
     #CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
     Base = automap_base()
 
@@ -97,6 +97,7 @@ def flex_find_data(**kwargs):
     stmt = stmt.columns(Insurance.id, Insurance.data)
     insurances = session.query(Insurance).from_statement(stmt).all()
     results = []
+    results.append('LIKE is set to {}<br>\n'.format(args[0]))
     results.append('The following keys are allowed in search: {}<br>\n'.format(','.join(ALLOWED_QUERY_KEYS)))
     for ins in insurances:
         results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
