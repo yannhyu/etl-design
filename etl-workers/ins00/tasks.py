@@ -97,7 +97,7 @@ def flex_find_data(**kwargs):
     stmt = stmt.columns(Insurance.id, Insurance.data)
     insurances = session.query(Insurance).from_statement(stmt).all()
     results = []
-    results.append('The following keys are allowed in search: {}'.format(','.join(ALLOWED_QUERY_KEYS)))
+    results.append('The following keys are allowed in search: {}<br>\n'.format(','.join(ALLOWED_QUERY_KEYS)))
     for ins in insurances:
         results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
 
