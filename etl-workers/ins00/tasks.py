@@ -104,11 +104,11 @@ def flex_find_data(*args, **kwargs):
     #results.append('LIKE is set to {}<br>\n'.format(args[0]))
     results.append('The following keys are allowed in search: {}<br>\n'.format(','.join(ALLOWED_QUERY_KEYS)))
     for ins in insurances:
-        results.append('{} {}<br>\n{}<br>\n{}, {} {}<br>\n'.format(ins.data['fname'],
-                                                             ins.data['lname'],
-                                                             ins.data['addr1'],
-                                                             ins.data['city'],
-                                                             ins.data['state'],
-                                                             ins.data['zip5']))
+        results.append('{} {}<br>\n{}<br>\n{}, {} {}<br>\n<br>\n'.format(ins.data['fname'],
+                                                                         ins.data['lname'],
+                                                                         ins.data['addr1'],
+                                                                         ins.data['city'],
+                                                                         ins.data['state'],
+                                                                         ins.data['zip5']))
 
     return ''.join(results)
