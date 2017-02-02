@@ -64,6 +64,7 @@ def read_db_data(lname_wanted='Aarick'):
 
 @app.task(name='ins00.flex_find_data')
 def flex_find_data(**kwargs):
+    ALLOWED_QUERY_KEYS = ['cust_id', 'lname', 'fname', 'state', 'gender']
     CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
     Base = automap_base()
 
@@ -93,6 +94,8 @@ def flex_find_data(**kwargs):
 #        results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
 #    return ''.join(results)
     results = []
+    results.append("SELECT id, data FROM ins00 WHERE ")
     for key, value in kwargs.items():
-        results.append("{} = {}<br>\n".format(key, value))
+        #results.append("{} = {}<br>\n".format(key, value))
+        results.append("LOWER(data->>'{}')=LOWER('{}')".format(key, value))
     return ''.join(results)
