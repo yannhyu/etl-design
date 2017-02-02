@@ -97,5 +97,6 @@ def flex_find_data(**kwargs):
     results.append("SELECT id, data FROM ins00 WHERE ")
     for key, value in kwargs.items():
         #results.append("{} = {}<br>\n".format(key, value))
-        results.append("LOWER(data->>'{}')=LOWER('{}')".format(key, value))
-    return ''.join(results)
+        results.append("LOWER(data->>'{}')=LOWER('{}') ".format(key, value))
+        results.append("AND ")
+    return ''.join(results[:-1])
