@@ -122,3 +122,5 @@ def eb_update(*args, **kwargs):
     results.append('eBureau new data:<br>\n')
     for key, value in kwargs.items():
         results.append('{}: {}<br>\n'.format(key, value))
+
+    return ''.join(results)
