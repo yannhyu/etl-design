@@ -105,14 +105,16 @@ def flex_find_data(*args, **kwargs):
         results.append('{}/{}/{}<br>\n'.format(ins.data['cust_id'], ins.data['hid'], ins.data['acctnum']))
         results.append('{} {}<br>\n'.format(ins.data['fname'], ins.data['lname']))
         results.append('{}<br>\n'.format(ins.data['addr1']))
-        results.append('{}, {} {}<br>\n<br>\n'.format(ins.data['city'],
-                                                      ins.data['state'],
-                                                      ins.data['zip5']))
+        results.append('{}, {} {}<br>\n'.format(ins.data['city'],
+                                                ins.data['state'],
+                                                ins.data['zip5']))
         fname = ins.data.get('eb_fn', 'N/A')
         append_ssn = ins.data.get('eb_ssn', 'N/A')
         if fname or append_ssn:
-            results.append('(eBureau: fname:{}, append_ssn:{})<br>\n<br>\n'.format(fname, append_ssn))
-
+            results.append('<h1 style="color:red;">')
+            results.append('(eBureau: fname:{}, append_ssn:{})'.format(fname, append_ssn))
+            results.append('</h1>')
+        results.append('<br>\n<br>\n')
     return ''.join(results)
 
 def generate_eb_update_query_text(args, kwargs):
