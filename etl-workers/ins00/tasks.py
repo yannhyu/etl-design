@@ -111,11 +111,11 @@ def flex_find_data(*args, **kwargs):
 
     return ''.join(results)
 
-def generate_eb_update_query_text(args, kwargs):
+def generate_eb_update_query_text(*args, kwargs):
     results = []
     results.append('UPDATE ins00 SET ')
     results.append('  data = data || {} '.format(kwargs)
-    results.append('WHERE cust_id={} AND hid={} AND acctnum={}'.format(tuple(args)))
+    results.append('WHERE cust_id={} AND hid={} AND acctnum={}'.format(args))
 
     return ''.join(results)
 
