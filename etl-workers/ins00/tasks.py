@@ -31,7 +31,7 @@ def add(x, y):
     return x + y
 
 @app.task(name='ins00.read_db_data')
-def read_db_data(lname_wanted='Rick'):
+def read_db_data(lname_wanted='Washington'):
     Base = automap_base()
 
     # engine, assume it has a table 'ins00' set up
@@ -110,3 +110,15 @@ def flex_find_data(*args, **kwargs):
                                                       ins.data['zip5']))
 
     return ''.join(results)
+
+@app.task(name='ins00.eb_update')
+def eb_update(*args, **kwargs):
+    Base = automap_base()
+    results = []
+    results.append('cust_id is set to {}<br>\n'.format(args[0]))
+    results.append('hid is set to {}<br>\n'.format(args[1]))
+    results.append('acctnum is set to {}<br>\n'.format(args[3]))
+
+    results.append('eBureau new data:<br>\n')
+    for key, value in kwargs.items():
+        results.append('{}: {}<br>\n'.format(key, value))
