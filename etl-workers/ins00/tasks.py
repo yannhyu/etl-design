@@ -108,6 +108,10 @@ def flex_find_data(*args, **kwargs):
         results.append('{}, {} {}<br>\n<br>\n'.format(ins.data['city'],
                                                       ins.data['state'],
                                                       ins.data['zip5']))
+        fname = ins.data['eb_fn']
+        append_ssn = ins.data['eb_ssn']
+        if fname or append_ssn:
+            results.append('(eBureau: fname:{}, append_ssn:{})<br>\n<br>\n'.format(fname, append_ssn))
 
     return ''.join(results)
 
