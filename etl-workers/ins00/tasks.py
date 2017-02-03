@@ -112,16 +112,23 @@ def flex_find_data(*args, **kwargs):
     return ''.join(results)
 
 def generate_eb_update_query_text(args, kwargs):
+    import json
     results = []
-    results.append('UPDATE ins00 SET ')
-    results.append('  data = data || {} '.format(kwargs))
-    results.append('WHERE cust_id={} AND hid={} AND acctnum={}'.format(*args))
+    results.append("UPDATE ins00 SET ")
+    results.append("  data = data || '{}' ".format(json.dumps(kwargs)))
+    results.append("WHERE data->>'cust_id'='{}'' AND data->>'hid'='{}'' AND data->>'acctnum'='{}'".format(*args))
 
     return ''.join(results)
 
 @app.task(name='ins00.eb_update')
 def eb_update(*args, **kwargs):
-    Base = automap_base()
+    # engine, assume it has a table 'ins00' set up
+    engine = create_engine(CONN_STRING)
+
+    from sqlalchemy.sql import text
 
     my_sql = generate_eb_update_query_text(args, kwargs)
+    logger.info('..db upsert with query: {}'.format(my_sql))
+#    with engine.connect() as con:
+#        con.execute(text('''{}'''.format(my_sql)))
     return my_sql
