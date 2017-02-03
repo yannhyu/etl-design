@@ -31,8 +31,7 @@ def add(x, y):
     return x + y
 
 @app.task(name='ins00.read_db_data')
-def read_db_data(lname_wanted='Aarick'):
-    #CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
+def read_db_data(lname_wanted='Rick'):
     Base = automap_base()
 
     # engine, assume it has a table 'ins00' set up
@@ -51,10 +50,6 @@ def read_db_data(lname_wanted='Aarick'):
                 "FROM ins00 WHERE LOWER(data->>'lname')=LOWER(:lname)")
     stmt = stmt.columns(Insurance.id, Insurance.data)
 
-    #LNAME_WANTED = 'Aarick'
-    #LNAME_WANTED = 'Aaron'
-    #LNAME_WANTED = 'Abad'
-
     LNAME_WANTED = lname_wanted
     logger.info('looking up by last name: {}'.format(LNAME_WANTED))
 
@@ -65,7 +60,7 @@ def read_db_data(lname_wanted='Aarick'):
         results.append('{} {} {}<br>\n'.format(ins.data['fname'], ins.data['lname'], ins.data['ssn']))
     return ''.join(results)
 
-def generate_query_text(args, kwargs):
+def generate_flex_find_data_query_text(args, kwargs):
     results = []
     results.append("SELECT id, data FROM ins00 WHERE ")
     for key, value in kwargs.items():
@@ -80,7 +75,6 @@ def generate_query_text(args, kwargs):
 
 @app.task(name='ins00.flex_find_data')
 def flex_find_data(*args, **kwargs):
-    #CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
     Base = automap_base()
 
     # engine, assume it has a table 'ins00' set up
@@ -94,7 +88,7 @@ def flex_find_data(*args, **kwargs):
     Insurance = Base.classes.ins00
     session = Session(engine)
 
-    my_sql = generate_query_text(args, kwargs)
+    my_sql = generate_flex_find_data_query_text(args, kwargs)
     logger.info('..db looking up with query: {}'.format(my_sql))
     from sqlalchemy import text
     stmt = text(my_sql)
