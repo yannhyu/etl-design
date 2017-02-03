@@ -111,8 +111,11 @@ def flex_find_data(*args, **kwargs):
         fname = ins.data.get('eb_fn')
         append_ssn = ins.data.get('eb_ssn')
         if fname or append_ssn:
-            results.append('<h5 style="color:red;">')
-            results.append('(eBureau: fname:{}, append_ssn:{})'.format(fname, append_ssn))
+            results.append('<h5 style="color:red;">(eBureau: ')
+            if fname:
+                results.append('fname: {} '.format(fname))
+            if append_ssn:
+                results.append('append_ssn: {})'.format(append_ssn))
             results.append('</h5>')
         results.append('<br>\n<br>\n')
     return ''.join(results)
