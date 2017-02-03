@@ -5,7 +5,7 @@ import time
 import logging
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -125,7 +125,7 @@ def eb_update(*args, **kwargs):
     rowcount = 'row(s) affected: ... '
     # engine, assume it has a table 'ins00' set up
     engine = create_engine(CONN_STRING, client_encoding='utf8')
-    meta = sqlalchemy.MetaData(bind=engine, reflect=True)
+    meta = MetaData(bind=engine, reflect=True)
 
     from sqlalchemy.sql import text
 
