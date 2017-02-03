@@ -111,16 +111,17 @@ def flex_find_data(*args, **kwargs):
 
     return ''.join(results)
 
+def generate_eb_update_query_text(args, kwargs):
+    results = []
+    results.append('UPDATE ins00 SET ')
+    results.append('  data = data || {} '.format(kwargs.items()))
+    results.append('WHERE cust_id={} AND hid={} AND acctnum={}'.format(args))
+
+    return ''.join(results)
+
 @app.task(name='ins00.eb_update')
 def eb_update(*args, **kwargs):
     Base = automap_base()
-    results = []
-    results.append('cust_id is set to {}<br>\n'.format(args[0]))
-    results.append('hid is set to {}<br>\n'.format(args[1]))
-    results.append('acctnum is set to {}<br>\n'.format(args[2]))
 
-    results.append('eBureau new data:<br>\n')
-    for key, value in kwargs.items():
-        results.append('{}: {}<br>\n'.format(key, value))
-
-    return ''.join(results)
+    my_sql = generate_eb_update_query_text(args, kwargs)
+    return my_sql
