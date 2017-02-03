@@ -115,7 +115,7 @@ def generate_eb_update_query_text(args, kwargs):
     results = []
     results.append('UPDATE ins00 SET ')
     results.append('  data = data || {} '.format(kwargs)
-    results.append('WHERE cust_id={0} AND hid={1} AND acctnum={2}'.format(*args))
+    results.append('WHERE cust_id={} AND hid={} AND acctnum={}'.format(args[0], args[1], args[2]))
 
     return ''.join(results)
 
