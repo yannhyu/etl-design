@@ -35,6 +35,13 @@ def eb_update(param1,param2,param3):
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
                 url=url_for('check_task',id=task.id,_external=True))
 
+@app.route('/eb_delete/<string:param1>/<string:param2>/<string:param3>/')
+def eb_delete(param1,param2,param3):
+    all_args = request.args.to_dict()
+    task = celery.send_task('ins00.eb_delete', args=[param1,param2,param3], kwargs=all_args)
+    return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
+                url=url_for('check_task',id=task.id,_external=True))
+
 @app.route('/check/<string:id>')
 def check_task(id):
     res = celery.AsyncResult(id)

@@ -144,3 +144,29 @@ def eb_update(*args, **kwargs):
         result = con.execute(text("""{}""".format(my_sql)))
         rowcount += str(result.rowcount)
     return rowcount
+
+def generate_eb_delete_query_text(args, kwargs):
+    EBUREAU_KEYS = ('eb_fn', 'eb_ln', 'eb_ssn', 'eb_code')
+    import json
+    results = []
+    results.append("UPDATE ins00 SET ")
+    results.append("  data = data - '{}' ".format(kwargs.get('target')))
+    results.append("WHERE data->>'cust_id'='{}' AND data->>'hid'='{}' AND data->>'acctnum'='{}'".format(*args))
+
+    return ''.join(results)
+
+@app.task(name='ins00.eb_delete')
+def eb_delete(*args, **kwargs):
+    rowcount = 'row(s) affected: ... '
+    # engine, assume it has a table 'ins00' set up
+    engine = create_engine(CONN_STRING, client_encoding='utf8')
+    meta = MetaData(bind=engine, reflect=True)
+
+    from sqlalchemy.sql import text
+
+    my_sql = generate_eb_delete_query_text(args, kwargs)
+    logger.info('..db upsert with query: {}'.format(my_sql))
+    with engine.connect() as con:
+        result = con.execute(text("""{}""".format(my_sql)))
+        rowcount += str(result.rowcount)
+    return rowcount
