@@ -117,7 +117,7 @@ def eb_update(*args, **kwargs):
     results = []
     results.append('cust_id is set to {}<br>\n'.format(args[0]))
     results.append('hid is set to {}<br>\n'.format(args[1]))
-    results.append('acctnum is set to {}<br>\n'.format(args[3]))
+    results.append('acctnum is set to {}<br>\n'.format(args[2]))
 
     results.append('eBureau new data:<br>\n')
     for key, value in kwargs.items():
