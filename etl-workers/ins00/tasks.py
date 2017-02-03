@@ -122,13 +122,16 @@ def generate_eb_update_query_text(args, kwargs):
 
 @app.task(name='ins00.eb_update')
 def eb_update(*args, **kwargs):
+    rowcount = 'row(s) affected: ... '
     # engine, assume it has a table 'ins00' set up
-    engine = create_engine(CONN_STRING)
+    engine = create_engine(CONN_STRING, client_encoding='utf8')
+    meta = sqlalchemy.MetaData(bind=engine, reflect=True)
 
     from sqlalchemy.sql import text
 
     my_sql = generate_eb_update_query_text(args, kwargs)
     logger.info('..db upsert with query: {}'.format(my_sql))
-#    with engine.connect() as con:
-#        con.execute(text('''{}'''.format(my_sql)))
-    return my_sql
+    with engine.connect() as con:
+        result = con.execute(text("""{}""".format(my_sql)))
+        rowcount += str(result.rowcount)
+    return rowcount
