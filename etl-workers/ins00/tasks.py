@@ -37,8 +37,8 @@ def load_ins00_data(*args, **kwargs):
     for key, value in kwargs.items():
         results.append('{} = {}<br>\n'.format(key, value))
     if 'reader' in kwargs and 'data' in kwargs:
-        myreader = 'readers/{}.py'.format(kwargs.get('reader', 'ins00_reader_309'))
-        myfile = 'Data/{}.txt'.format(kwargs.get('data', 'Med_309_fake'))
+        myreader = './readers/{}.py'.format(kwargs.get('reader', 'ins00_reader_309'))
+        myfile = './Data/{}.txt'.format(kwargs.get('data', 'Med_309_fake'))
 
         import subprocess
         pwd_flag = subprocess.check_output(['pwd'])
