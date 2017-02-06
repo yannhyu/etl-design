@@ -36,13 +36,16 @@ def load_ins00_data(*args, **kwargs):
     results = []
     for key, value in kwargs.items():
         results.append('{} = {}<br>\n'.format(key, value))
+    if 'reader' in kwargs and 'data' in kwargs:
+        myreader = 'readers/{}.py'.format(kwargs.get('reader', 'ins00_reader_309'))
+        myfile = 'Data/{}.txt'.format(kwargs.get('data', 'Med_309_fake'))
 
-    import subprocess
-    res = subprocess.call(['python',
-                           'readers/ins00_reader_309.py',
-                           'Data/Med_309_fake.txt'],
-                           shell=False)
-    results.append(str(res))
+        import subprocess
+        res = subprocess.call(['python',
+                               myreader,
+                               myfile],
+                               shell=False)
+        results.append(str(res))
     return ''.join(results)
 
 
