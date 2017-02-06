@@ -2,8 +2,11 @@
 --You are now connected to database "etl" as user "test_user".
 
 CREATE DATABASE IF NOT EXISTS etl;
+CREATE USER test_user WITH PASSWORD 'med';
+GRANT ALL PRIVILEGES ON DATABASE "etl" to test_user;
 
-CONNECT TO etl;
+\c etl
+--CONNECT TO etl;
 
 CREATE EXTENSION pgcrypto; 
 
