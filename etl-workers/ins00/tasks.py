@@ -22,7 +22,8 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
-CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
+#CONN_STRING = 'postgresql://test_user:med@10.20.20.12:5432/etl'
+CONN_STRING = 'postgresql://postgres:postgres@db:5432/postgres'
 ALLOWED_QUERY_KEYS = {'cust_id', 'hid', 'acctnum', 'lname', 'fname'}
 
 @app.task(name='ins00.add')
