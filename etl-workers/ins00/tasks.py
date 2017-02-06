@@ -42,7 +42,7 @@ def load_ins00_data(*args, **kwargs):
                            'ins00_reader_309.py',
                            'Med_309_fake.txt'],
                            shell=False)
-    results.append(res)
+    results.append(str(res))
     return ''.join(results)
 
 
