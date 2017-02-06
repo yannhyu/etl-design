@@ -5,7 +5,8 @@ CREATE DATABASE IF NOT EXISTS etl;
 CREATE USER test_user WITH PASSWORD 'med';
 GRANT ALL PRIVILEGES ON DATABASE "etl" to test_user;
 
-\c etl
+USE etl;
+--\c etl
 --CONNECT TO etl;
 
 CREATE EXTENSION pgcrypto; 
