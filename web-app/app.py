@@ -14,6 +14,13 @@ def add(param1,param2):
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
                 url=url_for('check_task',id=task.id,_external=True))
 
+@app.route('/load_ins00_data/')
+def load_ins00_data():
+    all_args = request.args.to_dict()
+    task = celery.send_task('ins00.load_ins00_data', args=[], kwargs=all_args)
+    return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
+                url=url_for('check_task',id=task.id,_external=True))
+
 @app.route('/read_db_data/<string:param>')
 def read_db_data(param):
     task = celery.send_task('ins00.read_db_data', args=[], kwargs={'lname_wanted':param})

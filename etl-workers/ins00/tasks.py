@@ -31,6 +31,21 @@ def add(x, y):
     time.sleep(5) # sleep for a while before the gigantic addition task!
     return x + y
 
+@app.task(name='ins00.load_ins00_data')
+def load_ins00_data(*args, **kwargs):
+    results = []
+    for key, value in kwargs.items():
+        results.append('{} = {}<br>\n'.format(key, value))
+
+    import subprocess
+    res = subprocess.call(['python',
+                           'ins00_reader_309.py',
+                           'Med_309_fake.txt'],
+                           shell=False)
+    results.append(res)
+    return ''.join(results)
+
+
 @app.task(name='ins00.read_db_data')
 def read_db_data(lname_wanted='Washington'):
     Base = automap_base()
