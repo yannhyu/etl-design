@@ -41,7 +41,7 @@ def load_ins00_data(*args, **kwargs):
         myfile = 'Data/{}.txt'.format(kwargs.get('data', 'Med_309_fake'))
 
         import subprocess
-        pwd_flag = subprocess.call(['pwd',], shell=True)
+        pwd_flag = subprocess.check_output(['pwd'])
         results.append(pwd_flag)
         res = subprocess.call(['python',
                                myreader,
