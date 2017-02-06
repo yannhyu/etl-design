@@ -1,6 +1,7 @@
 --etl=> select CURRENT_USER;
 --You are now connected to database "etl" as user "test_user".
-CREATE DATABASE etl;
+
+--CREATE DATABASE etl;
 
 CREATE EXTENSION pgcrypto; 
 
