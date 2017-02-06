@@ -39,8 +39,8 @@ def load_ins00_data(*args, **kwargs):
 
     import subprocess
     res = subprocess.call(['python',
-                           '/etl-workers/ins00/ins00_reader_309.py',
-                           '/etl-workers/ins00/Med_309_fake.txt'],
+                           'ins00/ins00_reader_309.py',
+                           'ins00/Med_309_fake.txt'],
                            shell=False)
     results.append(str(res))
     return ''.join(results)
