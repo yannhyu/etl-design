@@ -1,4 +1,4 @@
-# read_incoming_309_file_into_etl_ins00.py
+# ins00_reader_309.py
 
 import fileinput
 from collections import OrderedDict
