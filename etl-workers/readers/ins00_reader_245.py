@@ -28,7 +28,8 @@ V4_OUTPUT_FIELDS = ('cust_id', 'treatment_code', 'output_id', 'hid', 'acctnum', 
                 'charges', 'balance', 'acct_status', 'client_field1', 'client_field2',
                 'client_field3', 'client_date1')
 
-conn_str = 'postgresql://test_user:med@10.20.20.12:5432/etl'
+#conn_str = 'postgresql://test_user:med@10.20.20.12:5432/etl'
+conn_str = 'postgresql://postgres:postgres@db:5432/postgres'
 engine = create_engine(conn_str)
 meta = MetaData()
 meta.reflect(bind=engine)
