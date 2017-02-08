@@ -62,13 +62,13 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     conda clean -tipsy
 
+USER root
+
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
     'notebook=4.3*' \
     jupyterhub=0.7 \
     && conda clean -tipsy
-
-USER root
 
 EXPOSE 8888
 WORKDIR /home/$NB_USER/work
