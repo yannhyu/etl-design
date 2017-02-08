@@ -31,7 +31,7 @@ ENV C_FORCE_ROOT true
 
 # copy source code
 COPY . /etl-workers
-WORKDIR /etl-workers
+#WORKDIR /etl-workers
 
 USER $NB_USER
 
