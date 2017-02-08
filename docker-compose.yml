@@ -1,6 +1,7 @@
 version: '2'
 services:
   notes:
+    restart: always
     image: jupyter/notebook
     container_name: med-notes
     build:
@@ -10,6 +11,8 @@ services:
     command: >
       jupyter notebook
       --NotebookApp.ip=0.0.0.0
+    depends_on:
+      - worker
   db:
     restart: always
     image: postgres:9.5
