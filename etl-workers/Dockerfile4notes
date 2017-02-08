@@ -37,7 +37,7 @@ USER $NB_USER
 
 # install requirements
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r /etl-workers/requirements.txt
 
 # Switch back to jovyan to avoid accidental container runs as root
 #USER $NB_USER
