@@ -36,7 +36,7 @@ WORKDIR /etl-workers
 USER $NB_USER
 
 # install requirements
-RUN pip install -r requirements.txt
+RUN pip install celery==3.1.21
 
 # Switch back to jovyan to avoid accidental container runs as root
 #USER $NB_USER
