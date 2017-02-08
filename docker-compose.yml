@@ -1,5 +1,15 @@
 version: '2'
 services:
+  notes:
+    image: jupyter/notebook
+    container_name: med-notes
+    build:
+      context: ./etl-workers
+    ports:
+      - "9888:8888"
+    command: >
+      jupyter notebook
+      --NotebookApp.ip=0.0.0.0
   db:
     restart: always
     image: postgres:9.5
