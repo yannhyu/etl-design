@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # copy source code
-COPY . /etl-workers
+COPY ../etl-workers /etl-workers
 WORKDIR /etl-workers
 
 # install requirements
