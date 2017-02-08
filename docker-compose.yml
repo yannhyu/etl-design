@@ -1,6 +1,7 @@
 version: '2'
 services:
   notes:
+    image: med-notes
     restart: always
     container_name: med-notes
     build:
@@ -28,6 +29,7 @@ services:
       - POSTGRES_DB=postgres
       - PGDATA=/pgdata
   web:
+    image: med-web
     container_name: med-web
     build:
       context: ./web-app
@@ -40,6 +42,7 @@ services:
     environment:
       PYTHONUNBUFFERED: 0
   worker:
+    image: med-worker
     container_name: med-pipeline
     build:
       context: ./etl-workers
@@ -51,6 +54,7 @@ services:
     environment:
       PYTHONUNBUFFERED: 0
   monitor:
+    image: med-monitor
     container_name: med-monitor
     build:
       context: ./etl-workers
