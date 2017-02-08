@@ -38,6 +38,7 @@ services:
     environment:
       PYTHONUNBUFFERED: 0
   monitor:
+    container_name: med-monitor
     build:
       context: ./etl-workers
       dockerfile: Dockerfile
