@@ -2,6 +2,10 @@ FROM jupyter/base-notebook
 
 MAINTAINER Jupyter Project <jupyter@googlegroups.com>
 
+ENV CELERY_BROKER_URL redis://redis:6379/0
+ENV CELERY_RESULT_BACKEND redis://redis:6379/0
+ENV C_FORCE_ROOT true
+
 USER root
 
 # Install all OS dependencies for fully functional notebook server
@@ -24,6 +28,13 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     inkscape \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# copy source code
+COPY . /etl-workers
+WORKDIR /etl-workers
+
+# install requirements
+RUN pip install -r requirements.txt
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_USER
