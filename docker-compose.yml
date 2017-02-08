@@ -2,7 +2,7 @@ version: '2'
 services:
   notes:
     restart: always
-    image: jupyter/minimal-notebook
+    image: jupyter/datascience-notebook
     container_name: med-notes
     build:
       context: ./etl-workers
