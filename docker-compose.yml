@@ -8,9 +8,8 @@ services:
       context: ./etl-workers
     ports:
       - "9888:8888"
-    command: >
-      jupyter notebook
-      --NotebookApp.ip=0.0.0.0
+    entrypoint: jupyter
+    command:  notebook --NotebookApp.ip=0.0.0.0
     depends_on:
       - worker
   db:
