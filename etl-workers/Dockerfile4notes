@@ -33,6 +33,8 @@ ENV C_FORCE_ROOT true
 COPY . /etl-workers
 WORKDIR /etl-workers
 
+USER $NB_USER
+
 # install requirements
 RUN pip install -r requirements.txt
 
