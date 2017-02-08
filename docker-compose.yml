@@ -4,8 +4,8 @@ services:
     restart: always
     container_name: med-notes
     build:
-      context: ./notebook
-      dockerfile: Dockerfile
+      context: ./etl-workers
+      dockerfile: Dockerfile4notes
     ports:
       - "9888:8888"
     command: >
