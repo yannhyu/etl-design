@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 
+MAINTAINER Yann YU<yann.yu@medlytix.com>
 
 RUN apt-get update -y
 RUN apt-get install -y python-pip python-dev
